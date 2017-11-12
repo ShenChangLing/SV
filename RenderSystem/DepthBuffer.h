@@ -11,11 +11,8 @@
 class DepthBuffer : public Buffer
 {
 public:
-<<<<<<< 6c970787d66b702c544730c7e9c7f638b127c9cd
-    DepthBuffer(Device *device,int width,int height);
-=======
     DepthBuffer(Device *device,BufferType bufferType,int width,int height);
->>>>>>> be34319ba7319f2f83a014c8167252d5e121d724
+
     ~DepthBuffer();
 
 private:

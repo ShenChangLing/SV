@@ -41,11 +41,9 @@ class Device;
 class Buffer;
 class DepthBuffer;
 
-<<<<<<< 6c970787d66b702c544730c7e9c7f638b127c9cd
-=======
 class HardwareBuffer;
+class HardwareBufferOfUniform;
 
->>>>>>> be34319ba7319f2f83a014c8167252d5e121d724
 class Window;
 
 ///////////////////////////

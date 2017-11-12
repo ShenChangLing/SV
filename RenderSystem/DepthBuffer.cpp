@@ -6,14 +6,8 @@
 #include "Device.h"
 #include "PhysicalDevice.h"
 
-
-<<<<<<< 6c970787d66b702c544730c7e9c7f638b127c9cd
-DepthBuffer::DepthBuffer(Device *device,int width,int height):
-    Buffer(device),
-=======
 DepthBuffer::DepthBuffer(Device *device,BufferType bufferType,int width,int height):
     Buffer(device,bufferType),
->>>>>>> be34319ba7319f2f83a014c8167252d5e121d724
     m_pDepthImage(VK_NULL_HANDLE),
     m_pDepthImageView(VK_NULL_HANDLE),
     m_pDepthMemory(VK_NULL_HANDLE)

@@ -83,11 +83,7 @@ void Device::destoryWindow(Window *window)
 
 DepthBuffer *Device::createDepthBuffer()
 {
-<<<<<<< 6c970787d66b702c544730c7e9c7f638b127c9cd
-    DepthBuffer* buffer = new DepthBuffer(this,512,512);
-=======
     DepthBuffer* buffer = new DepthBuffer(this,Buffer::BufferType_Depth,512,512);
->>>>>>> be34319ba7319f2f83a014c8167252d5e121d724
     return buffer;
 }
 
