@@ -7,6 +7,8 @@
 
 #include "DepthBuffer.h"
 
+#include "PipelineLayout.h"
+
 #ifdef WIN32
 #include "Win32Window.h"
 #endif
@@ -14,7 +16,8 @@
 Device::Device(PhysicalDevice* physicalDevice) :
     m_pPhysicalDevice(physicalDevice),
     m_vulkanDevice(VK_NULL_HANDLE),
-    m_iDeviceQueueIndex(0)
+    m_iDeviceQueueIndex(0),
+    m_vulkanDescriptorPool(VK_NULL_HANDLE)
 {
     VkPhysicalDevice vkPhysicalDevice = m_pPhysicalDevice->getVkPhysicalDevice();
 
@@ -54,12 +57,30 @@ Device::Device(PhysicalDevice* physicalDevice) :
         std::cout << "vkCreateCommandPool Error" << std::endl;
 #endif
     }
+
+    //创建描述池
+    VkDescriptorPoolSize descriptorPoolSize[2];//支持纹理
+    descriptorPoolSize[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    descriptorPoolSize[0].descriptorCount = 1;
+
+    descriptorPoolSize[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    descriptorPoolSize[1].descriptorCount =1;
+
+    VkDescriptorPoolCreateInfo descriptorPoolCreateInfo = {};
+    descriptorPoolCreateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+    descriptorPoolCreateInfo.pNext = nullptr;
+    descriptorPoolCreateInfo.maxSets = 1;
+    descriptorPoolCreateInfo.poolSizeCount = 2;
+    descriptorPoolCreateInfo.pPoolSizes = descriptorPoolSize;
+
+    vkCreateDescriptorPool(m_vulkanDevice,&descriptorPoolCreateInfo, nullptr,&m_vulkanDescriptorPool);
 }
 
 Device::~Device()
 {
     if (m_vulkanDevice)
     {
+        vkDestroyDescriptorPool(m_vulkanDevice,m_vulkanDescriptorPool, nullptr);
         vkDestroyCommandPool(m_vulkanDevice,m_vulkanCommandPool, nullptr);
         vkDestroyDevice(m_vulkanDevice, nullptr);
         m_vulkanDevice = VK_NULL_HANDLE;
@@ -95,4 +116,17 @@ void Device::destroyDepthBuffer(DepthBuffer *depthBuffer)
 void Device::getVkMemoryRequirements(VkImage &image ,VkMemoryRequirements &memoryRequirements)
 {
     vkGetImageMemoryRequirements(m_vulkanDevice,image,&memoryRequirements);
+}
+
+PipelineLayout *Device::createPipelineLayout(bool isUserTexture)
+{
+    PipelineLayout *pipelineLayout = new PipelineLayout(this,isUserTexture);
+    assert(pipelineLayout);
+    return pipelineLayout;
+}
+
+void Device::destroyPipelineLayout(PipelineLayout *pipelineLayout)
+{
+    assert(pipelineLayout);
+    delete pipelineLayout;
 }

@@ -37,7 +37,7 @@ DepthBuffer::DepthBuffer(Device *device,BufferType bufferType,int width,int heig
 
     imageCreateInfo.mipLevels = 1;
     imageCreateInfo.arrayLayers = 1;
-    imageCreateInfo.samples = VK_SAMPLE_COUNT_8_BIT;
+    imageCreateInfo.samples = VK_SAMPLE_COUNT_1_BIT;
 
     imageCreateInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
     imageCreateInfo.usage = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;

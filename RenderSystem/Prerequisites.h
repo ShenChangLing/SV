@@ -44,6 +44,9 @@ class DepthBuffer;
 class HardwareBuffer;
 class HardwareBufferOfUniform;
 
+class Pipeline;
+class PipelineLayout;
+
 class Window;
 
 ///////////////////////////

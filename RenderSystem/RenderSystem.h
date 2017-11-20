@@ -21,6 +21,7 @@ public:
 private:
     VulkanSupport *m_pVulkanSupport;
     Device *m_pDevice;
+    PipelineLayout *m_pPipelineLayout;
 };
 
 #endif //SV_RENDERSYSTEM_H

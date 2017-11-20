@@ -15,7 +15,9 @@ set(SourceCache
         DepthBuffer.cpp DepthBuffer.h
         Buffer.cpp Buffer.h
         HardwareBuffer.cpp HardwareBuffer.h
-        HardwareBufferOfUniform.cpp HardwareBufferOfUniform.h)
+        HardwareBufferOfUniform.cpp HardwareBufferOfUniform.h
+        Pipeline.cpp Pipeline.h
+        PipelineLayout.cpp PipelineLayout.h)
 
 if (WIN32)
     set(SourceCache

@@ -12,12 +12,13 @@ template <> RenderSystem* Singleton<RenderSystem>::m_pSingleton = nullptr;
 
 RenderSystem::RenderSystem():
     m_pVulkanSupport(nullptr),
-    m_pDevice(nullptr)
+    m_pDevice(nullptr),
+    m_pPipelineLayout(nullptr)
 {
     m_pVulkanSupport = new VulkanSupport();
 
     m_pDevice = new Device(m_pVulkanSupport->getPhysicalDeviceOfFirst());
-
+    m_pPipelineLayout = m_pDevice->createPipelineLayout(true);
 
 }
 
@@ -26,6 +27,11 @@ RenderSystem::~RenderSystem()
     //
     if (m_pDevice)
     {
+        if (m_pPipelineLayout)
+        {
+            m_pDevice->destroyPipelineLayout(m_pPipelineLayout);
+            m_pPipelineLayout = nullptr;
+        }
         delete m_pDevice;
         m_pDevice = nullptr;
     }

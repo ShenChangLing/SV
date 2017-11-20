@@ -21,6 +21,9 @@ public:
     DepthBuffer* createDepthBuffer();
     void destroyDepthBuffer(DepthBuffer* depthBuffer);
 
+    PipelineLayout* createPipelineLayout(bool isUserTexture = false);
+    void destroyPipelineLayout(PipelineLayout* pipelineLayout);
+
     void getVkMemoryRequirements(VkImage &image ,VkMemoryRequirements& memoryRequirements);
 
 private:
@@ -28,6 +31,7 @@ private:
     VkDevice m_vulkanDevice;
 
     VkCommandPool m_vulkanCommandPool;
+    VkDescriptorPool m_vulkanDescriptorPool;
 
 private:
     int m_iDeviceQueueIndex;
